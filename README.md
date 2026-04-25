@@ -6,11 +6,16 @@ An ergonomic superset of React's Context API for butter smooth dependency inject
 
 `supercontext` extends React's Context API with:
 
-- Better TypeScript inference
-- Automatic error handling for missing providers
-- Utility functions for combining multiple contexts
-- Support for default values and lazy initialization
-- Root component helpers for cleaner provider setup
+- ✅ Better TypeScript inference than native Context API
+- ✅ Automatic error handling for missing providers
+- ✅ Enhanced base context providers with `addRoot`
+- ✅ Easy access to multiple contexts
+- ✅ Lazy initialization of default values
+- ✅ Zero dependencies (only uses React)
+
+## Requirements
+
+- React 19 or above
 
 ## Installation
 
@@ -342,13 +347,3 @@ try {
   }
 }
 ```
-
-## Benefits
-
-- ✅ Better TypeScript inference than native Context API
-- ✅ Automatic error handling for missing providers
-- ✅ Clean root component pattern
-- ✅ Easy access to multiple contexts
-- ✅ Support for default values and lazy initialization
-- ✅ Backward compatible with React Context API
-- ✅ Zero dependencies (only uses React)

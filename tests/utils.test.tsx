@@ -1,6 +1,6 @@
 import { describe, it, expect, afterEach } from "vitest";
 import { render, screen, cleanup } from "@testing-library/react";
-import { createSuperContext } from "../src/supercontext";
+import { createSuperContext } from "../src/superctx";
 import { useProviders, Providers } from "../src/utils";
 
 afterEach(() => {

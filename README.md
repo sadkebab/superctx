@@ -1,10 +1,10 @@
-# SuperContext
+# SuperCtx
 
 An ergonomic superset of React's Context API for butter smooth dependency injection 🧈
 
 ## Overview
 
-`supercontext` extends React's Context API with:
+`superctx` extends React's Context API with:
 
 - ✅ Better TypeScript inference than native Context API
 - ✅ Automatic error handling for missing providers
@@ -20,7 +20,7 @@ An ergonomic superset of React's Context API for butter smooth dependency inject
 ## Installation
 
 ```bash
-pnpm add supercontext
+pnpm add superctx
 ```
 
 ## Usage
@@ -28,7 +28,7 @@ pnpm add supercontext
 ### Basic Context Creation
 
 ```tsx
-import { createSuperContext } from "supercontext";
+import { createSuperContext } from "superctx";
 
 // Context that requires a provider
 const UserContext = createSuperContext<{ name: string; email: string }>({
@@ -71,7 +71,7 @@ function UserDisplay() {
 Create root components that automatically provide context values:
 
 ```tsx
-import { createSuperContext, addRoot } from "supercontext";
+import { createSuperContext, addRoot } from "superctx";
 
 const Environment = addRoot(
   createSuperContext<NebulyEnvironment>({
@@ -106,7 +106,7 @@ function Component() {
 Use `useProviders` to access multiple contexts at once:
 
 ```tsx
-import { useProviders } from "supercontext";
+import { useProviders } from "superctx";
 
 function MyComponent() {
   const [user, theme, environment] = useProviders([UserContext, ThemeContext, Environment]);
@@ -125,7 +125,7 @@ function MyComponent() {
 Use the `Providers` component for cleaner conditional rendering with multiple contexts:
 
 ```tsx
-import { Providers } from "supercontext";
+import { Providers } from "superctx";
 
 function DataDisplay() {
   return (
@@ -146,7 +146,7 @@ function DataDisplay() {
 ### Environment Configuration
 
 ```tsx
-import { createSuperContext, addRoot } from "supercontext";
+import { createSuperContext, addRoot } from "superctx";
 
 type NebulyEnvironment = {
   apiUrl: string;
@@ -184,7 +184,7 @@ function ApiClient() {
 ### Theme Context
 
 ```tsx
-import { createSuperContext, addRoot } from "supercontext";
+import { createSuperContext, addRoot } from "superctx";
 
 export const Theme = addRoot(
   createSuperContext<"light" | "dark" | "system">({
@@ -211,7 +211,7 @@ function App() {
 ### Combining Multiple Contexts
 
 ```tsx
-import { useProviders, Providers } from "supercontext";
+import { useProviders, Providers } from "superctx";
 
 // Access multiple contexts
 function Dashboard() {
@@ -244,7 +244,7 @@ function ConditionalContent() {
 ### Formatters with Locale
 
 ```tsx
-import { createSuperContext, addRoot } from "supercontext";
+import { createSuperContext, addRoot } from "superctx";
 import { DateFormatter, NumberFormatter, TimeFormatter } from "formatters";
 
 export const Formatters = addRoot(
@@ -337,7 +337,7 @@ Error class thrown when a required context is not provided.
 When a context is required but not provided, a `MissingProviderError` is thrown:
 
 ```typescript
-import { MissingProviderError } from "supercontext";
+import { MissingProviderError } from "superctx";
 
 try {
   const user = UserContext.useProvided();

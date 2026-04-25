@@ -2,7 +2,7 @@ import { describe, it, expect, vi, afterEach } from "vitest";
 import { render, screen, cleanup } from "@testing-library/react";
 import { useState } from "react";
 import type { PropsWithChildren } from "react";
-import { createSuperContext, addRoot } from "../src/supercontext";
+import { createSuperContext, addRoot } from "../src/superctx";
 import { MissingProviderError } from "../src/errors";
 
 afterEach(() => {

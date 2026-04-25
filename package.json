@@ -1,7 +1,6 @@
 {
   "name": "supercontext",
   "version": "0.1.0",
-  "author": "Alberto Harka",
   "description": "An enhanced React Context API with better TypeScript support, error handling, and utilities for multiple contexts.",
   "keywords": [
     "context",
@@ -9,6 +8,7 @@
     "typescript"
   ],
   "license": "MIT",
+  "author": "Alberto Harka",
   "files": [
     "dist",
     "README.md"

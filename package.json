@@ -13,6 +13,7 @@
     "README.md"
   ],
   "type": "module",
+  "packageManager": "pnpm@10.9.0",
   "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.js",

@@ -1,7 +1,7 @@
 import { describe, it, expect, afterEach } from "vitest";
 import { render, screen, cleanup } from "@testing-library/react";
 import { createSuperContext } from "../src/superctx";
-import { useProviders, Providers } from "../src/utils";
+import { useProviders, Consumer } from "../src/utils";
 
 afterEach(() => {
   cleanup();
@@ -136,13 +136,13 @@ describe("Resolver component", () => {
     });
 
     render(
-      <Providers deps={[context1, context2]}>
+      <Consumer providers={[context1, context2]}>
         {(values) => (
           <div>
             {values[0]}-{values[1]}
           </div>
         )}
-      </Providers>,
+      </Consumer>,
     );
 
     expect(screen.getByText("value1-value2")).toBeDefined();
@@ -160,13 +160,13 @@ describe("Resolver component", () => {
     });
 
     render(
-      <Providers deps={[context1, context2, context3]}>
+      <Consumer providers={[context1, context2, context3]}>
         {(values) => (
           <div>
             {values[0]}-{values[1]}-{String(values[2])}
           </div>
         )}
-      </Providers>,
+      </Consumer>,
     );
 
     expect(screen.getByText("string-42-true")).toBeDefined();
@@ -183,13 +183,13 @@ describe("Resolver component", () => {
     render(
       <context1.Provider value="provided1">
         <context2.Provider value="provided2">
-          <Providers deps={[context1, context2]}>
+          <Consumer providers={[context1, context2]}>
             {(values) => (
               <div>
                 {values[0]}-{values[1]}
               </div>
             )}
-          </Providers>
+          </Consumer>
         </context2.Provider>
       </context1.Provider>,
     );
@@ -206,13 +206,13 @@ describe("Resolver component", () => {
     });
 
     render(
-      <Providers deps={[context1, context2]}>
+      <Consumer providers={[context1, context2]}>
         {(values) => (
           <div>
             {values[0]}-{values[1]}
           </div>
         )}
-      </Providers>,
+      </Consumer>,
     );
 
     expect(screen.getByText("computed1-computed2")).toBeDefined();
@@ -223,13 +223,13 @@ describe("Resolver component", () => {
       initialValue: "single",
     });
 
-    render(<Providers deps={[context1]}>{(values) => <div>{values[0]}</div>}</Providers>);
+    render(<Consumer providers={[context1]}>{(values) => <div>{values[0]}</div>}</Consumer>);
 
     expect(screen.getByText("single")).toBeDefined();
   });
 
   it("should handle empty deps array", () => {
-    render(<Providers deps={[]}>{(values) => <div>Count: {values.length}</div>}</Providers>);
+    render(<Consumer providers={[]}>{(values) => <div>Count: {values.length}</div>}</Consumer>);
 
     expect(screen.getByText("Count: 0")).toBeDefined();
   });
@@ -245,13 +245,13 @@ describe("Resolver component", () => {
     render(
       <context1.Provider value="outer-provided">
         <context2.Provider value="inner-provided">
-          <Providers deps={[context1, context2]}>
+          <Consumer providers={[context1, context2]}>
             {(values) => (
               <div>
                 {values[0]}-{values[1]}
               </div>
             )}
-          </Providers>
+          </Consumer>
         </context2.Provider>
       </context1.Provider>,
     );
@@ -268,13 +268,13 @@ describe("Resolver component", () => {
     });
 
     render(
-      <Providers deps={[context1, context2]}>
+      <Consumer providers={[context1, context2]}>
         {(values) => (
           <div>
             {values[0].name}-{values[0].id}-{values[1].count}
           </div>
         )}
-      </Providers>,
+      </Consumer>,
     );
 
     expect(screen.getByText("test-1-42")).toBeDefined();

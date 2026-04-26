@@ -120,23 +120,23 @@ function MyComponent() {
 }
 ```
 
-### Providers Component
+### Consumer Component
 
-Use the `Providers` component for cleaner conditional rendering with multiple contexts:
+Use the `Consumer` component for cleaner conditional rendering with multiple contexts:
 
 ```tsx
-import { Providers } from "superctx";
+import { Consumer } from "superctx";
 
 function DataDisplay() {
   return (
-    <Providers deps={[UserContext, ProjectContext]}>
+    <Consumer providers={[UserContext, ProjectContext]}>
       {([user, project]) => (
         <div>
           <h1>{user.name}</h1>
           <h2>{project.name}</h2>
         </div>
       )}
-    </Providers>
+    </Consumer>
   );
 }
 ```
@@ -211,7 +211,7 @@ function App() {
 ### Combining Multiple Contexts
 
 ```tsx
-import { useProviders, Providers } from "superctx";
+import { useProviders, Consumer } from "superctx";
 
 // Access multiple contexts
 function Dashboard() {
@@ -226,17 +226,17 @@ function Dashboard() {
   );
 }
 
-// Or use Providers component for conditional rendering
+// Or use Consumer component for conditional rendering
 function ConditionalContent() {
   return (
-    <Providers deps={[UserContext, FeatureFlags]}>
+    <Consumer providers={[UserContext, FeatureFlags]}>
       {([user, flags]) => {
         if (flags.isAdmin && user.role === "admin") {
           return <AdminPanel />;
         }
         return <RegularContent />;
       }}
-    </Providers>
+    </Consumer>
   );
 }
 ```
@@ -319,13 +319,13 @@ Hook to access multiple contexts at once.
 
 **Returns:** Tuple of context values (typed)
 
-### `Providers<T>(props)`
+### `Consumer<T>(props)`
 
 Component for conditional rendering with multiple contexts.
 
 **Props:**
 
-- `deps`: Array of super contexts
+- `providers`: Array of super contexts
 - `children`: Render function receiving context values
 
 ### `MissingProviderError`

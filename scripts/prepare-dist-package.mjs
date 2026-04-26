@@ -22,6 +22,7 @@ const publishPackage = {
   keywords: rootPackage.keywords,
   license: rootPackage.license,
   type: "module",
+  repository: rootPackage.repository,
   sideEffects: rootPackage.sideEffects,
   main: "./index.js",
   module: "./index.js",

@@ -9,6 +9,10 @@
   ],
   "license": "MIT",
   "author": "Alberto Harka",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sadkebab/superctx"
+  },
   "files": [
     "dist",
     "README.md"

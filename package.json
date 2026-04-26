@@ -30,7 +30,7 @@
   "scripts": {
     "build": "tsup",
     "prepare:dist": "node ./scripts/prepare-dist-package.mjs",
-    "version:from-tag": "node ./scripts/version-from-tag.mjs",
+    "version:from-tag": "node ./scripts/version-from-tag.mjs && pnpm format",
     "publish:dist": "pnpm publish dist --no-git-checks --access public",
     "prepublish": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm test && pnpm build && pnpm prepare:dist",
     "typecheck": "tsc --noEmit",

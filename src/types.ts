@@ -6,6 +6,6 @@ export type SuperContext<T> = {
   useProvided: () => T;
 };
 
-export type Rooted<T, U> = T & {
-  Root: React.ComponentType<U>;
+export type Based<T, U> = T & {
+  Base: React.ComponentType<U>;
 };

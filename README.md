@@ -8,7 +8,7 @@ An ergonomic superset of React's Context API for butter smooth dependency inject
 
 - ✅ Better TypeScript inference than native Context API
 - ✅ Automatic error handling for missing providers
-- ✅ Enhanced base context providers with `addRoot`
+- ✅ Enhanced base context providers with `addBase`
 - ✅ Easy access to multiple contexts
 - ✅ Lazy initialization of default values
 - ✅ Zero dependencies (only uses React)
@@ -72,14 +72,14 @@ function UserDisplay() {
 }
 ```
 
-### Root Components with `addRoot`
+### Base Components with `addBase`
 
 Create root components that automatically provide context values:
 
 ```tsx
-import { createSuperContext, addRoot } from "superctx";
+import { createSuperContext, addBase } from "superctx";
 
-const Environment = addRoot(
+const Environment = addBase(
   createSuperContext<NebulyEnvironment>({
     notProvidedMessage: "Environment not provided",
   }),
@@ -91,12 +91,12 @@ const Environment = addRoot(
   },
 );
 
-// Usage - just use the Root component
+// Usage - just use the Base component
 function App() {
   return (
-    <Environment.Root>
+    <Environment.Base>
       <YourApp />
-    </Environment.Root>
+    </Environment.Base>
   );
 }
 
@@ -152,7 +152,7 @@ function DataDisplay() {
 ### Environment Configuration
 
 ```tsx
-import { createSuperContext, addRoot } from "superctx";
+import { createSuperContext, addBase } from "superctx";
 
 type NebulyEnvironment = {
   apiUrl: string;
@@ -160,7 +160,7 @@ type NebulyEnvironment = {
   flags?: Record<string, boolean>;
 };
 
-export const Environment = addRoot(
+export const Environment = addBase(
   createSuperContext<NebulyEnvironment>({
     notProvidedMessage: "Environment not provided",
   }),
@@ -175,9 +175,9 @@ export const Environment = addRoot(
 // Usage
 function App() {
   return (
-    <Environment.Root>
+    <Environment.Base>
       <Router />
-    </Environment.Root>
+    </Environment.Base>
   );
 }
 
@@ -190,9 +190,9 @@ function ApiClient() {
 ### Theme Context
 
 ```tsx
-import { createSuperContext, addRoot } from "superctx";
+import { createSuperContext, addBase } from "superctx";
 
-export const Theme = addRoot(
+export const Theme = addBase(
   createSuperContext<"light" | "dark" | "system">({
     initialValue: "system",
   }),
@@ -207,9 +207,9 @@ export const Theme = addRoot(
 // Usage
 function App() {
   return (
-    <Theme.Root defaultTheme="light">
+    <Theme.Base defaultTheme="light">
       <YourApp />
-    </Theme.Root>
+    </Theme.Base>
   );
 }
 ```
@@ -250,10 +250,10 @@ function ConditionalContent() {
 ### Formatters with Locale
 
 ```tsx
-import { createSuperContext, addRoot } from "superctx";
+import { createSuperContext, addBase } from "superctx";
 import { DateFormatter, NumberFormatter, TimeFormatter } from "formatters";
 
-export const Formatters = addRoot(
+export const Formatters = addBase(
   createSuperContext<{
     numberFmt: NumberFormatter;
     timeFmt: TimeFormatter;
@@ -304,16 +304,16 @@ Creates a super context with enhanced features.
 - `Consumer`: React context consumer component
 - `useProvided()`: Hook to access context value
 
-### `addRoot<T, U>(context, rootFactory)`
+### `addBase<T, U>(context, baseFactory)`
 
-Creates a root component for a context.
+Creates a base component for a context.
 
 **Parameters:**
 
 - `context`: A super context
-- `rootFactory`: Function that takes Provider and returns a root component
+- `baseFactory`: Function that takes Provider and returns a base component
 
-**Returns:** Context with added `Root` component
+**Returns:** Context with added `Base` component
 
 ### `useProviders<T>(deps)`
 
@@ -360,11 +360,17 @@ export function useMyContext() {
   }
   return value;
 }
+
+export function SomeComponent() {
+  const { foo } = useMyContext();
+  return <p>{foo}</p>;
+}
+
 ```
 
 ### With superctx
 
-```typescript
+```tsx
 import { createSuperContext } from "superctx";
 
 export const MyContext = createSuperContext<{
@@ -373,7 +379,8 @@ export const MyContext = createSuperContext<{
   notProvidedMessage: "MyContext provider is missing",
 });
 
-export function useMyContext() {
-  return MyContext.useProvided();
+export function SomeComponent() {
+  const { foo } = MyContext.useProvided();
+  return <p>{foo}</p>;
 }
 ```

@@ -2,7 +2,7 @@ import { describe, it, expect, vi, afterEach } from "vitest";
 import { render, screen, cleanup } from "@testing-library/react";
 import { useState } from "react";
 import type { PropsWithChildren } from "react";
-import { createSuperContext, addRoot } from "../src/superctx";
+import { createSuperContext, addBase } from "../src/superctx";
 import { MissingProviderError } from "../src/errors";
 
 afterEach(() => {
@@ -247,15 +247,15 @@ describe("createSuperContext", () => {
   });
 });
 
-describe("rooted", () => {
-  it("should create a Root component from Provider", () => {
-    // Create Root inside a component to avoid accessing Value during rooted call
+describe("based", () => {
+  it("should create a Base component from Provider", () => {
+    // Create Base inside a component to avoid accessing Value during based call
     const TestWrapper = () => {
       const context = createSuperContext({
         initialValue: "initial",
       });
 
-      const Root = addRoot(context, (Provider) => {
+      const Root = addBase(context, (Provider) => {
         return ({ children }) => {
           const [state] = useState("rooted-value");
 
@@ -268,7 +268,7 @@ describe("rooted", () => {
         return <div>{value}</div>;
       };
 
-      const RootComponent = Root.Root;
+      const RootComponent = Root.Base;
 
       return (
         <RootComponent>
@@ -286,21 +286,21 @@ describe("rooted", () => {
       const context = createSuperContext({
         initialValue: "initial",
       });
-      const Root = addRoot(context, (Provider) => {
+      const Root = addBase(context, (Provider) => {
         return ({ children }) => <Provider value="rooted">{children}</Provider>;
       });
 
-      // Test that Root.Root works (Provider functionality)
+      // Test that Root.Base works (Provider functionality)
       const TestComponent1 = () => {
         const value = context.useProvided() as string;
         return <div>{value}</div>;
       };
 
-      // const RootComponent = Root.Root;
+      // const RootComponent = Root.Base;
       return (
-        <Root.Root>
+        <Root.Base>
           <TestComponent1 />
-        </Root.Root>
+        </Root.Base>
       );
     };
 
@@ -312,7 +312,7 @@ describe("rooted", () => {
       const context = createSuperContext({
         initialValue: "initial",
       });
-      const Root = addRoot(context, (Provider) => {
+      const Root = addBase(context, (Provider) => {
         return ({ children }) => <Provider value="test">{children}</Provider>;
       });
       return <Root.Consumer>{(value) => <div>Consumer: {value}</div>}</Root.Consumer>;
@@ -321,13 +321,13 @@ describe("rooted", () => {
     expect(screen.getByText("Consumer: initial")).toBeDefined();
   });
 
-  it("should allow Root to accept custom props", () => {
+  it("should allow Base to accept custom props", () => {
     const context = createSuperContext({
       initialValue: "initial",
     });
 
     const TestWrapper = () => {
-      const Root = addRoot(context, (Provider) => {
+      const Root = addBase(context, (Provider) => {
         return ({ prefix, children }: PropsWithChildren<{ prefix: string }>) => (
           <Provider value={`${prefix}-value`}>{children}</Provider>
         );
@@ -338,7 +338,7 @@ describe("rooted", () => {
         return <div>{value}</div>;
       };
 
-      const RootComponent = Root.Root;
+      const RootComponent = Root.Base;
       return (
         <RootComponent prefix="custom">
           <TestComponent />
